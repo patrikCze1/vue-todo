@@ -8,6 +8,7 @@
         :label="todoItem.label"
         :checked="todoItem.checked"
         @click="() => toggleCheck(todoItem.id)"
+        @key-up="(e) => handleKeyUp(e, todoItem.id)"
         @delete="() => handleDelete(todoItem.id)"
       />
     </div>
@@ -19,21 +20,22 @@
 /* eslint-disable no-unused-vars */
 import { defineComponent } from "vue";
 import TodoCheckbox from "./todo-checkbox.vue";
+import useTodos from "@/composables/useTodos";
 
 export default defineComponent({
   name: "TodoList",
 
   components: { TodoCheckbox },
 
-  props: ["todos"],
-
   emits: ["todos-changed"],
 
   setup(props, { emit }) {
+    const { todos } = useTodos();
+
     const toggleCheck = (id) => {
       emit(
         "todos-changed",
-        props.todos.map((el) => {
+        todos.value.map((el) => {
           if (el.id === id) {
             return {
               ...el,
@@ -46,7 +48,12 @@ export default defineComponent({
       );
     };
 
-    const handleDelete = (id) => {};
+    const handleDelete = (id) => {
+      emit(
+        "todos-changed",
+        todos.value.filter((el) => el.id !== id),
+      );
+    };
 
     const handleKeyUp = (e, id) => {
       if (e.keyCode === 13) {
@@ -57,6 +64,8 @@ export default defineComponent({
     return {
       toggleCheck,
       handleDelete,
+      handleKeyUp,
+      todos,
     };
   },
 });
