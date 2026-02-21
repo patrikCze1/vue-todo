@@ -1,8 +1,8 @@
 <template>
-    <div class="root">
-        <TodoList :todos="todos" @todos-changed="handleTodosChanged" />
-        <TodoForm :todos="todos" @todos-changed="handleTodosChanged" />
-    </div>
+  <div class="root">
+    <TodoList :todos="todos" @todos-changed="handleTodosChanged" />
+    <TodoForm :todos="todos" @todos-changed="handleTodosChanged" />
+  </div>
 </template>
 
 <script>
@@ -12,40 +12,40 @@ import TodoList from "./components/todo-list.vue";
 import { todosList } from "./todo-data";
 
 export default defineComponent({
-    name: "App",
+  name: "App",
 
-    components: {
-        TodoList,
-        TodoForm,
-    },
+  components: {
+    TodoList,
+    TodoForm,
+  },
 
-    setup() {
-        const todos = ref(todosList);
+  setup() {
+    const todos = ref(todosList);
 
-        const handleTodosChanged = (newTodos) => {
-            todos.value = newTodos;
-        };
+    const handleTodosChanged = (newTodos) => {
+      todos.value = newTodos;
+    };
 
-        return {
-            todos,
-            handleTodosChanged,
-        };
-    },
+    return {
+      todos,
+      handleTodosChanged,
+    };
+  },
 });
 </script>
 
 <style>
 body {
-    margin: 20px 0 0 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-        "Helvetica Neue", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  margin: 20px 0 0 0;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .root {
-    width: 600px;
-    margin: auto;
+  width: 600px;
+  margin: auto;
 }
 </style>
